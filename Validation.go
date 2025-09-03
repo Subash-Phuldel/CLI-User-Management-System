@@ -14,7 +14,7 @@ func AgeValidation(age int) error {
 }
 
 func EmailValidation(email string) error {
-	re, err := regexp.Compile(`^[a-zA-Z0-9._+%-]*@[a-zA-Z0-9._]*\.[a-zA-Z]{2,}$`)
+	re, err := regexp.Compile(`^[a-zA-Z0-9._+%-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$`)
 	if err != nil {
 		return err
 	}

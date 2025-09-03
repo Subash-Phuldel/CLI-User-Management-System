@@ -44,44 +44,53 @@ func RegisterUser(service *UserService) {
 	fmt.Printf("Enter Your name: ")
 	tempInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 	name := strings.ToTitle(strings.TrimSpace(tempInput))
 
 	fmt.Printf("Enter Your email: ")
 	tempInput, err = reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 	email := strings.ToLower(strings.TrimSpace(tempInput))
 
 	fmt.Printf("Enter Your age: ")
 	tempInput, err = reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
-	age, _ := strconv.ParseInt(strings.TrimSpace(tempInput), 10, 64)
+	age, err := strconv.ParseInt(strings.TrimSpace(tempInput), 10, 64)
+
+	if err != nil {
+		fmt.Println("Invalid Input: ", err)
+	}
+
 	err = service.RegisterUser(name, int(age), email)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Error: ", err)
 	}
 }
 
 func GetUser(service UserService) {
 	reader := bufio.NewReader(os.Stdin)
+
 	fmt.Printf("Enter User ID: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	id, err := strconv.ParseInt(strings.TrimSpace(temInput), 10, 64)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 	user, err := service.GetUserById(int(id))
+
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Error: ", err)
 	}
+
 	users := []User{}
 	users = append(users, user)
 	service.ShowUsers(users)
@@ -92,8 +101,9 @@ func FilterUserByName(service UserService) {
 	fmt.Printf("Enter User Name: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	name := strings.ToTitle(strings.TrimSpace(temInput))
 	matchedUsers := service.SearchByName(name)
 	service.ShowUsers(matchedUsers)
@@ -104,8 +114,9 @@ func FilterUserByEmail(service UserService) {
 	fmt.Printf("Enter User Email: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	email := strings.ToLower(strings.TrimSpace(temInput))
 	matchedUsers := service.SearchByEmail(email)
 	service.ShowUsers(matchedUsers)
@@ -116,18 +127,18 @@ func FilterUserByAge(service UserService) {
 	fmt.Printf("Enter User Age: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 	age, err := strconv.ParseInt(strings.TrimSpace(temInput), 10, 64)
 
-	fmt.Printf("To filter user less than age %d Enter 'low'.", age)
-	fmt.Printf("To filter user equal to age %d Enter 'eq'.", age)
-	fmt.Printf("To filter user greater than age %d Enter 'gre'.", age)
+	fmt.Printf("To filter user less than age %d Enter 'low'.\n", age)
+	fmt.Printf("To filter user equal to age %d Enter 'eq'.\n", age)
+	fmt.Printf("To filter user greater than age %d Enter 'gre'.\n", age)
 	fmt.Printf("Enter Operator: ")
 
 	temInput, err = reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 
 	operator := strings.ToLower(strings.TrimSpace(temInput))
@@ -140,18 +151,20 @@ func ModifyUserEmail(service *UserService) {
 	fmt.Printf("Enter User ID: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	id, err := strconv.ParseInt(strings.TrimSpace(temInput), 10, 64)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
 
 	fmt.Printf("Enter Your email: ")
 	temInput, err = reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	newEmail := strings.ToLower(strings.TrimSpace(temInput))
 	err = service.ModifyEmailById(int(id), newEmail)
 	if err != nil {
@@ -160,7 +173,7 @@ func ModifyUserEmail(service *UserService) {
 }
 
 func GetAllUsers(service UserService) {
-	service.UserRepository.GetAll()
+	service.ShowUsers(service.UserRepository.GetAll())
 }
 
 func RemoveUser(service *UserService) {
@@ -168,15 +181,17 @@ func RemoveUser(service *UserService) {
 	fmt.Printf("Enter User ID: ")
 	temInput, err := reader.ReadString('\n')
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	id, err := strconv.ParseInt(strings.TrimSpace(temInput), 10, 64)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Input: ", err)
 	}
+
 	err = service.RemoveUserById(int(id))
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid Error: ", err)
 	}
 }
 

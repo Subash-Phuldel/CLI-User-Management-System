@@ -10,7 +10,7 @@ type UserService struct {
 	UserRepository UserRepositoryJSON
 }
 
-var id int = rand.Int()
+var id = rand.Int()
 
 func (service *UserService) Initilized(fileName string) {
 	service.UserRepository.Initilized(fileName)
@@ -51,7 +51,7 @@ func (service UserService) GetUserById(id int) (User, error) {
 			return v, nil
 		}
 	}
-	return User{}, errors.New("Index not found in Users")
+	return User{}, errors.New("User Not Found")
 }
 
 func (service UserService) SearchByName(name string) []User {
@@ -100,7 +100,7 @@ func (service *UserService) ModifyEmailById(id int, email string) error {
 			return nil
 		}
 	}
-	return errors.New("Index not found in Users")
+	return errors.New("User Not Found")
 }
 
 func (service *UserService) ShowUsers(users []User) {

@@ -5,5 +5,6 @@ type UserRepositoryInterface interface {
 	RemoveUserByID(id int) error
 	Save() error
 	Open() error
-	GetAll()
+	GetAll() []User
+	Initilized(fileName string)
 }

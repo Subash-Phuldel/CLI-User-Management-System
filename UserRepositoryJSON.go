@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 )
 
@@ -28,7 +27,7 @@ func (repository *UserRepositoryJSON) RemoveUserByID(id int) error {
 			return nil
 		}
 	}
-	return errors.New("Index not found in Users")
+	return errors.New("User Not Found")
 
 }
 
@@ -61,11 +60,15 @@ func (repository *UserRepositoryJSON) Open() error {
 	return nil
 }
 
-func (repository *UserRepositoryJSON) GetAll() {
-	fmt.Printf("%-5s %-15s %-25s %-5s\n", "ID", "Name", "Email", "Age")
-	fmt.Println("-------------------------------------------------------")
-	for _, v := range repository.Users {
-		fmt.Printf("%-5d %-15s %-25s %-5d\n", v.Id, v.Name, v.Email, v.Age)
-	}
-	fmt.Println("-------------------------------------------------------")
+//func (repository *UserRepositoryJSON) GetAll() {
+//	fmt.Printf("%-5s %-15s %-25s %-5s\n", "ID", "Name", "Email", "Age")
+//	fmt.Println("-------------------------------------------------------")
+//	for _, v := range repository.Users {
+//		fmt.Printf("%-5d %-15s %-25s %-5d\n", v.Id, v.Name, v.Email, v.Age)
+//	}
+//	fmt.Println("-------------------------------------------------------")
+//}
+
+func (repository *UserRepositoryJSON) GetAll() []User {
+	return repository.Users
 }
