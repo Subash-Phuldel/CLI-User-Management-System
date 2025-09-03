@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"regexp"
+	"strings"
 )
 
 func AgeValidation(age int) error {
@@ -22,5 +23,13 @@ func EmailValidation(email string) error {
 		return nil
 	} else {
 		return errors.New("invalid Email")
+	}
+}
+
+func IsEmpty(s string) error {
+	if strings.TrimSpace(s) == "" {
+		return errors.New("Empty String")
+	} else {
+		return nil
 	}
 }

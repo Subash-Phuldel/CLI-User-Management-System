@@ -13,7 +13,7 @@ type UserRepositoryJSON struct {
 }
 
 func (repository *UserRepositoryJSON) Initilized(fileName string) {
-	repository.FileName = fileName
+	repository.FileName = fileName + ".json"
 	repository.Users = []User{}
 }
 
@@ -22,18 +22,14 @@ func (repository *UserRepositoryJSON) AddUser(newUser User) {
 }
 
 func (repository *UserRepositoryJSON) RemoveUserByID(id int) error {
-	index := -1
 	for i, v := range repository.Users {
 		if v.GetId() == id {
-			index = i
+			repository.Users = append(repository.Users[:i], repository.Users[i+1:]...)
+			return nil
 		}
 	}
-	if index != -1 {
-		repository.Users = append(repository.Users[:index], repository.Users[index+1:]...)
-	} else {
-		return errors.New("Index not found in Users")
-	}
-	return nil
+	return errors.New("Index not found in Users")
+
 }
 
 func (repository *UserRepositoryJSON) Save() error {
