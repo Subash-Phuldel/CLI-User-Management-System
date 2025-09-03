@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 
 	var repository UserRepositoryJSON
@@ -10,4 +12,6 @@ func main() {
 	repository.RemoveUserByID(3)
 	repository.Save()
 	repository.GetAll()
+	fmt.Println(AgeValidation(10))
+	fmt.Println(EmailValidation("s@gmail.com"))
 }
