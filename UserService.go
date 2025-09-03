@@ -1,12 +1,16 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"math/rand"
+)
 
 type UserService struct {
 	UserRepository UserRepositoryJSON
 }
 
-var id int = 0
+var id int = rand.Int()
 
 func (service *UserService) Initilized(fileName string) {
 	service.UserRepository.Initilized(fileName)
@@ -86,15 +90,23 @@ func (service UserService) SearchByAge(age int, operator string) []User {
 }
 
 func (service *UserService) ModifyEmailById(id int, email string) error {
-	for _, v := range service.UserRepository.Users {
+	for i, v := range service.UserRepository.Users {
 		if v.GetId() == id {
 			err := EmailValidation(email)
 			if err != nil {
 				return err
 			}
-			v.ModifyEmail(email)
+			service.UserRepository.Users[i].ModifyEmail(email)
 			return nil
 		}
 	}
 	return errors.New("Index not found in Users")
+}
+
+func (service *UserService) ShowUsers(users []User) {
+	fmt.Printf("%-5s %-15s %-25s %-5s\n", "ID", "Name", "Email", "Age")
+	fmt.Println("-------------------------------------------------------")
+	for _, v := range users {
+		fmt.Printf("%-5d %-15s %-25s %-5d\n", v.Id, v.Name, v.Email, v.Age)
+	}
 }

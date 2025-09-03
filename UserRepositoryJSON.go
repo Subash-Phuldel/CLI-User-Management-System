@@ -67,4 +67,5 @@ func (repository *UserRepositoryJSON) GetAll() {
 	for _, v := range repository.Users {
 		fmt.Printf("%-5d %-15s %-25s %-5d\n", v.Id, v.Name, v.Email, v.Age)
 	}
+	fmt.Println("-------------------------------------------------------")
 }
